@@ -1,4 +1,4 @@
-[![MELPA](https://melpa.org/packages/d2-mode-badge.svg)](https://melpa.org/#/d2-mode)
+<!-- [![MELPA](https://melpa.org/packages/d2-mode-badge.svg)](https://melpa.org/#/d2-mode) -->
 
 # d2-mode
 
@@ -64,7 +64,7 @@ To customize the key bindings but this into your `init.el` ...
 
 ```elisp
 (setq d2-mode-map
-  (let ((map mermaid-mode-map))
+  (let ((map d2-mode-map))
     (define-key map (kbd "C-c C-c") nil)
     (define-key map (kbd "C-c C-f") nil)
     (define-key map (kbd "C-c C-b") nil)
