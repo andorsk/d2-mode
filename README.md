@@ -2,11 +2,16 @@
 
 # d2-mode
 
-A [d2](https://github.com/andorsk/d2-mode) extension for Emacs.
+A [d2](https://github.com/andorsk/d2-mode) extension for Emacs. This was heavily
+inspired by [Mermaid Mode](https://github.com/abrochard/mermaid-mode).
+
+**Status:** Work in Progress
 
 ## Why D2
 
-I love making graphs over markdown.
+Text to graph diagrams are awesome. I used Mermaid.js all the time and it was
+fantastic, but there were a few things it couldn't do so I wanted to expand my
+options.
 
 ## Installation
 
