@@ -43,7 +43,7 @@
 
 ;;; Customization:
 
-;; You can specify the location of `mmdc` with the variable `d2-bin-location`,
+;; You can specify the location of `d2` with the variable `d2-bin-location`,
 ;; the default assumes you have the binary in your exec PATH.
 
 ;; By default `d2` will compile to `png` format.
@@ -110,7 +110,7 @@
   (let* ((out-file (or (cdr (assoc :file params))
                        (error "Mermaid requires a \":file\" header argument")))
          (temp-file (org-babel-temp-file "d2-"))
-         (cmd (concat (shell-quote-argument d2-mmdc-location)
+         (cmd (concat (shell-quote-argument d2-d2-location)
                       " -o " (org-babel-process-file-name out-file)
                       " -i " temp-file
                       " " d2-flags)))
@@ -150,31 +150,31 @@ STR is the declaration."
              )))))
 
 (defun d2-compile ()
-  "Compile the current d2 file using mmdc."
+  "Compile the current d2 file using d2."
   (interactive)
   (d2-compile-file (buffer-file-name)))
 
 (defun d2-compile-buffer ()
-  "Compile the current d2 buffer using mmdc."
+  "Compile the current d2 buffer using d2."
   (interactive)
-  (let* ((tmp-file-name (concat d2-tmp-dir "current-buffer.mmd")))
+  (let* ((tmp-file-name (concat d2-tmp-dir "current-buffer.d2")))
     (write-region (point-min) (point-max) tmp-file-name)
     (d2-compile-file tmp-file-name)))
 
 (defun d2-compile-region ()
-  "Compile the current d2 region using mmdc."
+  "Compile the current d2 region using d2."
   (interactive)
-  (let* ((tmp-file-name (concat d2-tmp-dir "current-region.mmd")))
+  (let* ((tmp-file-name (concat d2-tmp-dir "current-region.d2")))
     (when (use-region-p)
       (write-region (region-beginning) (region-end) tmp-file-name)
       (d2-compile-file tmp-file-name))))
 
 (defun d2-compile-file (file-name)
-  "Compile the given d2 file using mmdc."
+  "Compile the given d2 file using d2."
   (interactive "fFilename: ")
   (let* ((input file-name)
          (output (concat (file-name-sans-extension input) d2-output-format)))
-    (apply #'call-process d2-mmdc-location nil "*mmdc*" nil (append (split-string d2-flags " ") (list "-i" input "-o" output)))
+    (apply #'call-process d2-location nil "*d2*" nil (append (split-string d2-flags " ") (list "-i" input "-o" output)))
     (display-buffer (find-file-noselect output t))))
 
 (defun d2-open-doc ()

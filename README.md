@@ -13,6 +13,19 @@ Text to graph diagrams are awesome. I used Mermaid.js all the time and it was
 fantastic, but there were a few things it couldn't do so I wanted to expand my
 options.
 
+Some things that I've noticed d2 has some interesting support in:
+
+1. More themes
+2. Code Blocks
+3. More visual customization
+4. More graph support
+5. Autoformat
+
+Learn more about [d2 here](https://d2lang.com/tour/intro/)
+
+I also highly recommend mermaid for general graphing. I use d2 when I want to be
+fancy, but mermaid in most other cases.
+
 ## Installation
 
 1. Install from Melpa or load the d2-mode.el file
