@@ -28,7 +28,7 @@ fancy, but mermaid in most other cases.
 
 ## Installation
 
-1. Install from Melpa or load the d2-mode.el file
+1. Load the d2-mode.el file ( Melpa not available yet )
 2. Install d2 binary from the d2 project if you plan to compile graphs in Emacs
 
 ## Usage
