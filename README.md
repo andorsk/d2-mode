@@ -1,4 +1,4 @@
-[![MELPA](https://melpa.org/packages/d2-mode-badge.svg)](https://melpa.org/#/d2-mode)
+<!-- [![MELPA](https://melpa.org/packages/d2-mode-badge.svg)](https://melpa.org/#/d2-mode) -->
 
 # d2-mode
 
@@ -28,7 +28,7 @@ fancy, but mermaid in most other cases.
 
 ## Installation
 
-1. Install from Melpa or load the d2-mode.el file
+1. Load the d2-mode.el file ( Melpa not available yet )
 2. Install d2 binary from the d2 project if you plan to compile graphs in Emacs
 
 ## Usage
@@ -64,7 +64,7 @@ To customize the key bindings but this into your `init.el` ...
 
 ```elisp
 (setq d2-mode-map
-  (let ((map mermaid-mode-map))
+  (let ((map d2-mode-map))
     (define-key map (kbd "C-c C-c") nil)
     (define-key map (kbd "C-c C-f") nil)
     (define-key map (kbd "C-c C-b") nil)
