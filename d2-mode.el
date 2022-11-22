@@ -52,9 +52,8 @@
 ;; By default `d2` will use `/tmp` to store tmp-files.
 ;; You can change that by setting the variable `d2-tmp-dir`.
 
-;; This code was inspired by mermaid-mode @
+;; This code was heavily inspired by mermaid-mode @
 ;; https://github.com/abrochard/mermaid-mode
-
 
 ;; STATE: Currently this is a work in progress
 ;;
@@ -109,7 +108,7 @@
 (defun org-babel-execute:d2 (body params)
   "Execute command with BODY and PARAMS from src block."
   (let* ((out-file (or (cdr (assoc :file params))
-                       (error "Mermaid requires a \":file\" header argument")))
+                       (error "d2 requires a \":file\" header argument")))
          (temp-file (org-babel-temp-file "d2-"))
          (cmd (concat (shell-quote-argument d2-location)
                       " -o " (org-babel-process-file-name out-file)
@@ -129,26 +128,7 @@ STR is the declaration."
           (cons (- l (line-number-at-pos)) (current-indentation))
         (cons -1 -1)))))
 
-;; (defun d2-indent-line ()
-;;   "Indent the current line."
-;;   (interactive)
-;;   (save-excursion
-;;     (end-of-line)
-;;     (let ((graph (d2--locate-declaration "^graph\\|sequenceDiagram"))
-;;           (subgraph (d2--locate-declaration "subgraph \\|loop \\|alt \\|opt"))
-;;           (both (d2--locate-declaration "^graph \\|^sequenceDiagram$\\|subgraph \\|loop \\|alt \\|opt"))
-;;           (else (d2--locate-declaration "else "))
-;;           (end (d2--locate-declaration "^ *end *$")))
-;;       (indent-line-to
-;;        (cond ((equal (car graph) 0) 0) ;; this is a graph declaration
-;;              ((equal (car end) 0) (cdr subgraph)) ;; this is "end", indent to nearest subgraph
-;;              ((equal (car subgraph) 0) (+ 4 (cdr graph))) ;; this is a subgraph
-;;              ((equal (car else) 0) (cdr subgraph)) ;; this is "else:, indent to nearest alt
-;;              ;; everything else
-;;              ((< (car end) 0) (+ 4 (cdr both))) ;; no end in sight
-;;              ((< (car both) (car end)) (+ 4 (cdr both))) ;; (sub)graph declaration closer, +4
-;;              (t (cdr end)) ;; end declaration closer, same indent
-;;              )))))
+;; TODO: Indent line code
 
 (defun d2-compile ()
   "Compile the current d2 file using d2."
