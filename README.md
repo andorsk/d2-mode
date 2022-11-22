@@ -3,7 +3,7 @@
 # d2-mode
 
 A [d2](https://github.com/andorsk/d2-mode) extension for Emacs. This was heavily
-inspired by [Mermaid Mode](https://github.com/abrochard/mermaid-mode).
+inspired (it's basically a fork) of [Mermaid Mode](https://github.com/abrochard/mermaid-mode).
 
 **Status:** Work in Progress
 
@@ -22,9 +22,6 @@ Some things that I've noticed d2 has some interesting support in:
 5. Autoformat
 
 Learn more about [d2 here](https://d2lang.com/tour/intro/)
-
-I also highly recommend mermaid for general graphing. I use d2 when I want to be
-fancy, but mermaid in most other cases.
 
 ## Installation
 
