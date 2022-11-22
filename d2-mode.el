@@ -127,26 +127,26 @@ STR is the declaration."
           (cons (- l (line-number-at-pos)) (current-indentation))
         (cons -1 -1)))))
 
-(defun d2-indent-line ()
-  "Indent the current line."
-  (interactive)
-  (save-excursion
-    (end-of-line)
-    (let ((graph (d2--locate-declaration "^graph\\|sequenceDiagram"))
-          (subgraph (d2--locate-declaration "subgraph \\|loop \\|alt \\|opt"))
-          (both (d2--locate-declaration "^graph \\|^sequenceDiagram$\\|subgraph \\|loop \\|alt \\|opt"))
-          (else (d2--locate-declaration "else "))
-          (end (d2--locate-declaration "^ *end *$")))
-      (indent-line-to
-       (cond ((equal (car graph) 0) 0) ;; this is a graph declaration
-             ((equal (car end) 0) (cdr subgraph)) ;; this is "end", indent to nearest subgraph
-             ((equal (car subgraph) 0) (+ 4 (cdr graph))) ;; this is a subgraph
-             ((equal (car else) 0) (cdr subgraph)) ;; this is "else:, indent to nearest alt
-             ;; everything else
-             ((< (car end) 0) (+ 4 (cdr both))) ;; no end in sight
-             ((< (car both) (car end)) (+ 4 (cdr both))) ;; (sub)graph declaration closer, +4
-             (t (cdr end)) ;; end declaration closer, same indent
-             )))))
+;; (defun d2-indent-line ()
+;;   "Indent the current line."
+;;   (interactive)
+;;   (save-excursion
+;;     (end-of-line)
+;;     (let ((graph (d2--locate-declaration "^graph\\|sequenceDiagram"))
+;;           (subgraph (d2--locate-declaration "subgraph \\|loop \\|alt \\|opt"))
+;;           (both (d2--locate-declaration "^graph \\|^sequenceDiagram$\\|subgraph \\|loop \\|alt \\|opt"))
+;;           (else (d2--locate-declaration "else "))
+;;           (end (d2--locate-declaration "^ *end *$")))
+;;       (indent-line-to
+;;        (cond ((equal (car graph) 0) 0) ;; this is a graph declaration
+;;              ((equal (car end) 0) (cdr subgraph)) ;; this is "end", indent to nearest subgraph
+;;              ((equal (car subgraph) 0) (+ 4 (cdr graph))) ;; this is a subgraph
+;;              ((equal (car else) 0) (cdr subgraph)) ;; this is "else:, indent to nearest alt
+;;              ;; everything else
+;;              ((< (car end) 0) (+ 4 (cdr both))) ;; no end in sight
+;;              ((< (car both) (car end)) (+ 4 (cdr both))) ;; (sub)graph declaration closer, +4
+;;              (t (cdr end)) ;; end declaration closer, same indent
+;;              )))))
 
 (defun d2-compile ()
   "Compile the current d2 file using d2."
@@ -173,8 +173,10 @@ STR is the declaration."
   (interactive "fFilename: ")
   (let* ((input file-name)
          (output (concat (file-name-sans-extension input) d2-output-format)))
-    (apply #'call-process d2-location nil "*d2*" nil (append (split-string d2-flags " ") (list "-i" input "-o" output)))
+    (message output)
+    (apply #'call-process d2-location nil "*d2*" nil (list input output))
     (display-buffer (find-file-noselect output t))))
+
 
 (defun d2-open-doc ()
   "Open the d2 home page and doc."
