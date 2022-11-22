@@ -2,6 +2,8 @@
 
 ;; Author: Andor Kesselman <andor@henosisknot.com>
 ;; Copyright (C) 2022, Andor Kesselman
+;; Heavily inspired by Mermaid Mode
+;; https://github.com/abrochard/mermaid-mode
 ;;
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -17,7 +19,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;; Version: 1.0
-;; Author: Adrien Brochard
+;; Author: Andor Kesselman
 ;; Keywords: d2 graphs tools processes
 ;; URL: https://github.com/andorsk/d2-mode
 ;; License: GNU General Public License >= 3
