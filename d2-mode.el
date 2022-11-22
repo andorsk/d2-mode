@@ -1,6 +1,4 @@
-;;; d2.el --- \                                      -*- lexical-binding: t; -*-
-
-;; Copyright (C) 2022  Andor Kesselman
+;;; d2-mode.el --- major mode for working with d2 graphs -*- lexical-binding: t; -*-
 
 ;; Author: Andor Kesselman <andor@henosisknot.com>
 ;; Copyright (C) 2022, Andor Kesselman
@@ -55,9 +53,10 @@
 ;; This code was inspired by mermaid-mode @
 ;; https://github.com/abrochard/mermaid-mode
 
-;; Code
 
 ;; STATE: Currently this is a work in progress
+;;
+;; Code
 
 (require 'f)
 (require 'browse-url)
@@ -69,12 +68,13 @@
   :group 'extensions
   :link '(url-link :tag "Repository" "https://github.com/andorsk/d2-mode"))
 
-(defcustom d2-compiler-location "d2"
+(defcustom d2-location "d2"
+  "d2 binary location"
   :type 'string
   :group 'd2-mode)
 
 (defcustom d2-output-format ".svg"
-  "Mmdc output format."
+  "d2 output format."
   :group 'd2-mode
   :type 'string)
 
@@ -89,9 +89,8 @@
   :type 'string)
 
 (defconst d2-font-lock-keywords
-  `((,(regexp-opt '("graph" "subgraph" "end" "flowchart" "sequenceDiagram" "classDiagram" "stateDiagram" "erDiagram" "gantt" "pie" "loop" "alt" "else" "opt") 'words) . font-lock-keyword-face)
-    ("---\\|-?->*\\+?\\|==>\\|===" . font-lock-function-name-face)
-    (,(regexp-opt '("TB" "TD" "BT" "LR" "RL" "DT" "BT" "class" "title" "section" "participant" "actor" "dataFormat" "Note") 'words) . font-lock-constant-face)))
+  `((,(regexp-opt '("shape" "md" ) 'words) . font-lock-keyword-face)
+    ("---\\|-?->*\\+?\\|==>\\|===|->" . font-lock-function-name-face)))
 
 (defvar d2-syntax-table
   (let ((syntax-table (make-syntax-table)))
@@ -110,7 +109,7 @@
   (let* ((out-file (or (cdr (assoc :file params))
                        (error "Mermaid requires a \":file\" header argument")))
          (temp-file (org-babel-temp-file "d2-"))
-         (cmd (concat (shell-quote-argument d2-d2-location)
+         (cmd (concat (shell-quote-argument d2-location)
                       " -o " (org-babel-process-file-name out-file)
                       " -i " temp-file
                       " " d2-flags)))
@@ -202,4 +201,5 @@ STR is the declaration."
   (setq-local comment-start-skip "%%+ *"))
 
 (provide 'd2-mode)
+
 ;;; d2-mode.el ends here
