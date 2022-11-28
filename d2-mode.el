@@ -175,10 +175,30 @@ STR is the declaration."
   (interactive "fFilename: ")
   (let* ((input file-name)
          (output (concat (file-name-sans-extension input) d2-output-format)))
-    (message output)
     (apply #'call-process d2-location nil "*d2*" nil (list input output))
     (display-buffer (find-file-noselect output t))))
 
+(defun process-signal (process signal)
+  (when (memq (process-status process) '(exit signal))
+    (message "Do something!")
+    (shell-command-sentinel process signal)))
+
+(defun d2-compile-and-watch-file ()
+  ;; async watching of file
+  (interactive)
+  (let* ((output-buffer (generate-new-buffer "*d2 Watch Mode*"))
+       (proc (progn
+               (async-shell-command "/opt/homebrew/bin/d2 -w /Users/akmb2/Downloads/input.d2 /tmp/output2.svg" output-buffer)
+               (get-buffer-process output-buffer))))
+  (if (process-live-p proc)
+      (set-process-sentinel proc #'process-signal)
+    (message "No process running.")))
+)
+
+(defun d2-list-proccesses ()
+  (interactive)
+  (message "not implemented")
+)
 
 (defun d2-open-doc ()
   "Open the d2 home page and doc."
@@ -193,6 +213,7 @@ STR is the declaration."
     (define-key map (kbd "C-c C-r") 'd2-compile-region)
     (define-key map (kbd "C-c C-o") 'd2-open-browser)
     (define-key map (kbd "C-c C-d") 'd2-open-doc)
+    (define-key map (kbd "C-c C-w") 'd2-compile-and-watch-file)
     map))
 
 ;;;###autoload
