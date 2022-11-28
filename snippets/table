@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: table
+# uuid: table
+# group: d2
+# key: trigger-key
+# condition: t
+# --
+My Table {
+   shape: sql_table
+
+   id: int { constraint: primary_key }
+   frame: int {constraint: foreign_key}
+
+}
