@@ -192,13 +192,19 @@ STR is the declaration."
                (get-buffer-process output-buffer))))
   (if (process-live-p proc)
       (set-process-sentinel proc #'process-signal)
-    (message "No process running.")))
-)
+    (message "No process running."))))
 
-(defun d2-list-proccesses ()
+(defun d2-kill-all-processes ()
+  ((interactive))
+  (message "not implemented"))
+
+(defun d2-kill-processes ()
+  ((interactive))
+  (message "not implemented"))
+
+(defun d2-show-proccesses ()
   (interactive)
-  (message "not implemented")
-)
+  (message "not implemented"))
 
 (defun d2-open-doc ()
   "Open the d2 home page and doc."
@@ -214,6 +220,9 @@ STR is the declaration."
     (define-key map (kbd "C-c C-o") 'd2-open-browser)
     (define-key map (kbd "C-c C-d") 'd2-open-doc)
     (define-key map (kbd "C-c C-w") 'd2-compile-and-watch-file)
+    (define-key map (kbd "C-c C-d") 'd2-kill-all-processes)
+    (define-key map (kbd "C-c C-d") 'd2-show-processes)
+    (define-key map (kbd "C-c C-d") 'd2-kill-process)
     map))
 
 ;;;###autoload
