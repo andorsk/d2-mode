@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: markdown
+# uuid: markdown
+# group: d2
+# key: trigger-key
+# condition: t
+# --
+
+a: |`
+   # Header
+   - This text
+   - Next text
+`
