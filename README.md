@@ -7,6 +7,8 @@ inspired (it's basically a fork) of [Mermaid Mode](https://github.com/abrochard/
 
 **Status:** Work in Progress
 
+<img width="1440" alt="image" src="https://user-images.githubusercontent.com/8604639/204269733-a856d3cf-09a1-418f-9776-34155aa1e0ef.png">
+
 ## Why D2
 
 Text to graph diagrams are awesome. I used Mermaid.js all the time and it was
@@ -80,5 +82,7 @@ To customize the key bindings but this into your `init.el` ...
 ```
 
 ## Bugs & Issues
+
+* libmagick and M1's have some issues. 1) it's not by default supported in the emacsformac install or the cask install and 2. There are some issues with rendering svg from emacs side. See https://github.com/andorsk/d2-mode/issues/13 and https://github.com/andorsk/d2-mode/issues/8 for more details. 
 
 Feel free to open an issue!
