@@ -220,9 +220,9 @@ STR is the declaration."
     (define-key map (kbd "C-c C-o") 'd2-open-browser)
     (define-key map (kbd "C-c C-d") 'd2-open-doc)
     (define-key map (kbd "C-c C-w") 'd2-compile-and-watch-file)
-    (define-key map (kbd "C-c C-d") 'd2-kill-all-processes)
-    (define-key map (kbd "C-c C-d") 'd2-show-processes)
-    (define-key map (kbd "C-c C-d") 'd2-kill-process)
+    (define-key map (kbd "C-c C-K") 'd2-kill-all-processes)
+    (define-key map (kbd "C-c C-s") 'd2-show-processes)
+    (define-key map (kbd "C-c C-k") 'd2-kill-process)
     map))
 
 ;;;###autoload
