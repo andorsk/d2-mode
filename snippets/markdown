@@ -5,9 +5,8 @@
 # key: trigger-key
 # condition: t
 # --
-
-a: |`
+a: |\`
    # Header
    - This text
    - Next text
-`
+\`
