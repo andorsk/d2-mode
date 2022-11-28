@@ -60,23 +60,19 @@ By default `d2-tmp-dir` points to `\tmp\`. Feel free to set it to a more appropr
 To customize the key bindings but this into your `init.el` ...
 
 ```elisp
-(setq d2-mode-map
-  (let ((map d2-mode-map))
-    (define-key map (kbd "C-c C-c") nil)
-    (define-key map (kbd "C-c C-f") nil)
-    (define-key map (kbd "C-c C-b") nil)
-    (define-key map (kbd "C-c C-r") nil)
-    (define-key map (kbd "C-c C-o") nil)
-    (define-key map (kbd "C-c C-d") nil)
-    (define-key map (kbd "C-c C-d c") 'd2-compile)
-    (define-key map (kbd "C-c C-d c") 'd2-compile)
-    (define-key map (kbd "C-c C-d f") 'd2-compile-file)
-    (define-key map (kbd "C-c C-d b") 'd2-compile-buffer)
-    (define-key map (kbd "C-c C-d r") 'd2-compile-region)
-    (define-key map (kbd "C-c C-d o") 'd2-open-browser)
-    (define-key map (kbd "C-c C-d d") 'd2-open-doc)
+(defvar d2-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-c C-c") 'd2-compile)
+    (define-key map (kbd "C-c C-f") 'd2-compile-file)
+    (define-key map (kbd "C-c C-b") 'd2-compile-buffer)
+    (define-key map (kbd "C-c C-r") 'd2-compile-region)
+    (define-key map (kbd "C-c C-o") 'd2-open-browser)
+    (define-key map (kbd "C-c C-d") 'd2-open-doc)
+    (define-key map (kbd "C-c C-w") 'd2-compile-and-watch-file)
+    (define-key map (kbd "C-c C-K") 'd2-kill-all-processes)
+    (define-key map (kbd "C-c C-s") 'd2-show-processes)
+    (define-key map (kbd "C-c C-k") 'd2-kill-process)
     map))
-
 ```
 
 ## Bugs & Issues
