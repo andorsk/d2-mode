@@ -7,6 +7,24 @@ inspired (it's basically a fork) of [Mermaid Mode](https://github.com/abrochard/
 
 **Status:** Work in Progress
 
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+
+**Table of Contents**
+
+- [d2-mode](#d2-mode)
+- [Why D2](#why-d2)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Customization](#customization)
+- [`d2` binary location](#d2-binary-location)
+- [Output format](#output-format)
+- [Temp directory](#temp-directory)
+- [Key bindings](#key-bindings)
+- [Bonus](#bonus)
+- [Bugs & Issues](#bugs--issues)
+
+<!-- markdown-toc end -->
+
 ## Why D2
 
 Text to graph diagrams are awesome. I used Mermaid.js all the time and it was
@@ -78,6 +96,10 @@ To customize the key bindings but this into your `init.el` ...
     map))
 
 ```
+
+### Bonus
+
+See the `snippets` folder for yas snippets. Start making d2 graphs today!
 
 ## Bugs & Issues
 
