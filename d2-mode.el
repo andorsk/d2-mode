@@ -46,7 +46,7 @@
 ;; You can specify the location of `d2` with the variable `d2-bin-location`,
 ;; the default assumes you have the binary in your exec PATH.
 
-;; By default `d2` will compile to `png` format.
+;; By default `d2` will compile to `svg` format.
 ;; You can change that by setting the variable `d2-output-format`.
 
 ;; By default `d2` will use `/tmp` to store tmp-files.
