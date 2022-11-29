@@ -3,7 +3,7 @@
 # d2-mode
 
 A [d2](https://github.com/terrastruct/d2) extension for Emacs. This was heavily
-inspired (it's basically a fork) of [Mermaid Mode](https://github.com/abrochard/mermaid-mode).
+inspired of [Mermaid Mode](https://github.com/abrochard/mermaid-mode).
 
 **Status:** Alpha
 
