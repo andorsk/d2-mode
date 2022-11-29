@@ -64,18 +64,20 @@
 (require 'ob)
 (require 'ob-eval)
 
+;;; Code:
+
 (defgroup d2-mode nil
   "Major mode for working with d2 graphs."
   :group 'extensions
   :link '(url-link :tag "Repository" "https://github.com/andorsk/d2-mode"))
 
 (defcustom d2-location "d2"
-  "d2 binary location"
+  "D2 binary location."
   :type 'string
   :group 'd2-mode)
 
 (defcustom d2-output-format ".svg"
-  "d2 output format."
+  "D2 output format."
   :group 'd2-mode
   :type 'string)
 
@@ -111,7 +113,7 @@
 (defun org-babel-execute:d2 (body params)
   "Execute command with BODY and PARAMS from src block."
   (let* ((out-file (or (cdr (assoc :file params))
-                       (error "d2 requires a \":file\" header argument")))
+                       (error "D2 requires a \":file\" header argument")))
          (temp-file (org-babel-temp-file "d2-"))
          (cmd (concat (shell-quote-argument d2-location)
                       " -o " (org-babel-process-file-name out-file)
@@ -122,8 +124,7 @@
     nil))
 
 (defun d2--locate-declaration (str)
-  "Locate a certain declaration and return the line difference
-and indentation. STR is the declaration."
+  "Locate a certain declaration and return the line difference and indentation. STR is the declaration."
   (let ((l (line-number-at-pos)))
     (save-excursion
       (if (re-search-backward str (point-min) t)
@@ -143,7 +144,8 @@ and indentation. STR is the declaration."
     (d2-compile-file-with-options tmp-file-name)))
 
 (defun d2-compile-region (&optional browse)
-  "Compile the current d2 region using d2."
+  "Compile the current d2 region using d2.
+Optional argument BROWSE locate a certain declaration."
   (interactive)
   (let* ((tmp-file-name (concat d2-tmp-dir "current-region.d2")))
     (when (use-region-p)
@@ -156,7 +158,8 @@ and indentation. STR is the declaration."
   (d2-compile-region t))
 
 (defun d2-compile-file (file-name &optional browse)
-  "Compile the given d2 file using d2. browse option determines opening method"
+  "Compile the given d2 file using d2. BROWSE option determine opening method.
+Argument FILE-NAME the input file."
   (interactive "fFilename: ")
   (let* ((input file-name)
          (output (concat (file-name-sans-extension input) d2-output-format)))
@@ -168,24 +171,27 @@ and indentation. STR is the declaration."
         (display-buffer (find-file-noselect output t))))))
 
 (defun d2-view-current-svg ()
-  "view the current svg in the browser"
+  "View the current svg in the browser."
   (interactive)
   (d2-browse-file buffer-file-name))
 
 (defun d2-browse-file (file-name)
-  "View a file in the browser"
+  "View a file in the browser.
+Argument FILE-NAME the input file."
   (interactive "fFilename: ")
   (let ((url file-name))
     (browse-url url)))
 
 (defun d2-compile-file-with-options (file-name &optional browse)
-  "compile file with options"
+  "Compile file with options.
+Argument FILE-NAME the input file.
+Optional argument BROWSE whether to open the browser."
   (interactive "fFilename: ")
   (message "compiling with current options")
   (d2-compile-file file-name browse))
 
 (defun d2-compile-buffer-and-browse()
-  "compile buffer and browse"
+  "Compile buffer and browse."
   (interactive)
   (d2-compile-file-with-options buffer-file-name t))
 
