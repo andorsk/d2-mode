@@ -5,7 +5,7 @@
 A [d2](https://github.com/terrastruct/d2) extension for Emacs. This was heavily
 inspired (it's basically a fork) of [Mermaid Mode](https://github.com/abrochard/mermaid-mode).
 
-**Status:** Pre-Alpha. Known issue with libmagick rendering of SVGs. Check the issues for more details. 
+**Status:** Pre-Alpha. Known issue with libmagick rendering of SVGs. Check the issues for more details.
 
 <div>
   <img height="500px" alt="image" src="https://user-images.githubusercontent.com/8604639/204498003-08bd0e05-0e0b-4d60-8d94-1ed95a4a7cd3.png">
@@ -25,6 +25,7 @@ inspired (it's basically a fork) of [Mermaid Mode](https://github.com/abrochard/
 - [Temp directory](#temp-directory)
 - [Key bindings](#key-bindings)
 - [Bonus](#bonus)
+- [Roadmap](#roadmap)
 - [Bugs & Issues](#bugs--issues)
 
 <!-- markdown-toc end -->
@@ -105,8 +106,13 @@ To customize the key bindings but this into your `init.el` ...
 
 See the `snippets` folder for yas snippets. Start making d2 graphs today!
 
+### Roadmap
+
+- Even better syntax highlighting and formatting
+- Watch mode support
+
 ## Bugs & Issues
 
-* libmagick and M1's have some issues. 1) it's not by default supported in the emacsformac install or the cask install and 2. There are some issues with rendering svg from emacs side. See https://github.com/andorsk/d2-mode/issues/13 and https://github.com/andorsk/d2-mode/issues/8 for more details. 
+- libmagick and M1's have some issues. 1) it's not by default supported in the emacsformac install or the cask install and 2. There are some issues with rendering svg from emacs side. See https://github.com/andorsk/d2-mode/issues/13 and https://github.com/andorsk/d2-mode/issues/8 for more details.
 
 Feel free to open an issue!
