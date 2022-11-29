@@ -84,7 +84,7 @@ By default `d2-tmp-dir` points to `\tmp\`. Feel free to set it to a more appropr
 
 ### Key bindings
 
-To customize the key bindings but this into your `init.el` ...
+To customize the key bindings put this into your `init.el` ...
 
 ```elisp
 (defvar d2-mode-map
