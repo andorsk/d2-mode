@@ -5,9 +5,11 @@
 A [d2](https://github.com/terrastruct/d2) extension for Emacs. This was heavily
 inspired (it's basically a fork) of [Mermaid Mode](https://github.com/abrochard/mermaid-mode).
 
-**Status:** Work in Progress. Known issue with libmagick rendering of SVGs. 
+**Status:** Pre-Alpha. Known issue with libmagick rendering of SVGs. Check the issues for more details. 
 
-<img width="1440" alt="image" src="https://user-images.githubusercontent.com/8604639/204269733-a856d3cf-09a1-418f-9776-34155aa1e0ef.png">
+<div>
+  <img height="500px" alt="image" src="https://user-images.githubusercontent.com/8604639/204498003-08bd0e05-0e0b-4d60-8d94-1ed95a4a7cd3.png">
+</div>
 
 ## Why D2
 
