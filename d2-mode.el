@@ -1,4 +1,4 @@
-;;; d2-mode.el --- major mode for working with d2 graphs -*- lexical-binding: t; -*-
+;;; d2-mode.el --- Major mode for working with d2 graphs -*- lexical-binding: t; -*-
 
 ;; Author: Andor Kesselman <andor@henosisknot.com>
 ;; Copyright (C) 2022, Andor Kesselman
@@ -23,7 +23,7 @@
 ;; Keywords: d2 graphs tools processes
 ;; URL: https://github.com/andorsk/d2-mode
 ;; License: GNU General Public License >= 3
-;; Package-Requires: ((f "0.20.0") (emacs "25.3"))
+;; Package-Requires: ((emacs "25.3"))
 
 ;;; Commentary:
 
@@ -66,7 +66,7 @@
 
 ;;; Code:
 
-(defgroup d2-mode nil
+(defgroup d2 nil
   "Major mode for working with d2 graphs."
   :group 'extensions
   :link '(url-link :tag "Repository" "https://github.com/andorsk/d2-mode"))
@@ -206,7 +206,7 @@ Optional argument BROWSE whether to open the browser."
     (define-key map (kbd "C-c C-f") 'd2-compile-file)
     (define-key map (kbd "C-c C-b") 'd2-compile-buffer)
     (define-key map (kbd "C-c C-r") 'd2-compile-region)
-    (define-key map (kbd "C-c C-h") 'd2-compile-file-and-browse)
+    (define-key map (kbd "C-c C-m") 'd2-compile-file-and-browse)
     (define-key map (kbd "C-c C-j") 'd2-compile-buffer-and-browse)
     (define-key map (kbd "C-c C-k") 'd2-compile-region-and-browse)
     (define-key map (kbd "C-c C-o") 'd2-open-browser)
