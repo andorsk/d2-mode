@@ -11,6 +11,10 @@ inspired (it's basically a fork) of [Mermaid Mode](https://github.com/abrochard/
   <img height="500px" alt="image" src="https://user-images.githubusercontent.com/8604639/204498003-08bd0e05-0e0b-4d60-8d94-1ed95a4a7cd3.png">
 </div>
 
+<div>
+  <img height="500px" alt="image" src="tutorial.gif">
+</div>
+
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 
 **Table of Contents**
