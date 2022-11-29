@@ -91,7 +91,10 @@
 
 (defconst d2-font-lock-keywords
   `((,(regexp-opt '("shape" "md" ) 'words) . font-lock-keyword-face)
-    ("---\\|-?->*\\+?\\|==>\\|===|->" . font-lock-function-name-face)))
+    ("---\\|-?->*\\+?\\|==>\\|===|->" . font-lock-variable-name-face)
+    (":\\|{\\|}\\|\|\\|+" . font-lock-builtin-face)
+    (,(regexp-opt '("go" "js") 'lang) .  font-lock-preprocessor-face)
+    (,(regexp-opt '("class" "string" ) 'words2) .  font-lock-type-face)))
 
 (defvar d2-syntax-table
   (let ((syntax-table (make-syntax-table)))
@@ -119,16 +122,13 @@
     nil))
 
 (defun d2--locate-declaration (str)
-  "Locate a certain declaration and return the line difference and indentation.
-
-STR is the declaration."
+  "Locate a certain declaration and return the line difference
+and indentation. STR is the declaration."
   (let ((l (line-number-at-pos)))
     (save-excursion
       (if (re-search-backward str (point-min) t)
           (cons (- l (line-number-at-pos)) (current-indentation))
         (cons -1 -1)))))
-
-;; TODO: Indent line code
 
 (defun d2-compile ()
   "Compile the current d2 file using d2."
