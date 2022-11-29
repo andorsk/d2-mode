@@ -52,9 +52,8 @@
 ;; By default `d2` will use `/tmp` to store tmp-files.
 ;; You can change that by setting the variable `d2-tmp-dir`.
 
-;; This code was inspired by mermaid-mode @
+;; This code was heavily inspired by mermaid-mode @
 ;; https://github.com/abrochard/mermaid-mode
-
 
 ;; STATE: Currently this is a work in progress
 ;;

@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: table
+# uuid: table
+# group: d2
+# key: trigger-key
+# condition: Mon 17:53:05
+
+# --
+A: |\`go
+   func() {
+      fmt.Println("hello")
+   }()
+\`

@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: container
+# uuid: container
+# group: d2
+# key: trigger-key
+# condition: t
+# --
+A {
+  B
+  shape: circle
+}
