@@ -92,7 +92,10 @@
 
 (defconst d2-font-lock-keywords
   `((,(regexp-opt '("shape" "md" ) 'words) . font-lock-keyword-face)
-    ("---\\|-?->*\\+?\\|==>\\|===|->" . font-lock-function-name-face)))
+    ("---\\|-?->*\\+?\\|==>\\|===|->" . font-lock-variable-name-face)
+    (":\\|{\\|}\\|\|\\|+" . font-lock-builtin-face)
+    (,(regexp-opt '("go" "js") 'lang) .  font-lock-preprocessor-face)
+    (,(regexp-opt '("class" "string" ) 'words2) .  font-lock-type-face)))
 
 (defvar d2-syntax-table
   (let ((syntax-table (make-syntax-table)))
@@ -109,7 +112,7 @@
 (defun org-babel-execute:d2 (body params)
   "Execute command with BODY and PARAMS from src block."
   (let* ((out-file (or (cdr (assoc :file params))
-                       (error "Mermaid requires a \":file\" header argument")))
+                       (error "d2 requires a \":file\" header argument")))
          (temp-file (org-babel-temp-file "d2-"))
          (cmd (concat (shell-quote-argument d2-location)
                       " -o " (org-babel-process-file-name out-file)
@@ -120,35 +123,13 @@
     nil))
 
 (defun d2--locate-declaration (str)
-  "Locate a certain declaration and return the line difference and indentation.
-
-STR is the declaration."
+  "Locate a certain declaration and return the line difference
+and indentation. STR is the declaration."
   (let ((l (line-number-at-pos)))
     (save-excursion
       (if (re-search-backward str (point-min) t)
           (cons (- l (line-number-at-pos)) (current-indentation))
         (cons -1 -1)))))
-
-;; (defun d2-indent-line ()
-;;   "Indent the current line."
-;;   (interactive)
-;;   (save-excursion
-;;     (end-of-line)
-;;     (let ((graph (d2--locate-declaration "^graph\\|sequenceDiagram"))
-;;           (subgraph (d2--locate-declaration "subgraph \\|loop \\|alt \\|opt"))
-;;           (both (d2--locate-declaration "^graph \\|^sequenceDiagram$\\|subgraph \\|loop \\|alt \\|opt"))
-;;           (else (d2--locate-declaration "else "))
-;;           (end (d2--locate-declaration "^ *end *$")))
-;;       (indent-line-to
-;;        (cond ((equal (car graph) 0) 0) ;; this is a graph declaration
-;;              ((equal (car end) 0) (cdr subgraph)) ;; this is "end", indent to nearest subgraph
-;;              ((equal (car subgraph) 0) (+ 4 (cdr graph))) ;; this is a subgraph
-;;              ((equal (car else) 0) (cdr subgraph)) ;; this is "else:, indent to nearest alt
-;;              ;; everything else
-;;              ((< (car end) 0) (+ 4 (cdr both))) ;; no end in sight
-;;              ((< (car both) (car end)) (+ 4 (cdr both))) ;; (sub)graph declaration closer, +4
-;;              (t (cdr end)) ;; end declaration closer, same indent
-;;              )))))
 
 (defun d2-compile ()
   "Compile the current d2 file using d2."
