@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: node-transition
+# uuid: node-transition
+# group: d2
+# key: trigger-key
+# condition: t
+# --
+A -> B : message
