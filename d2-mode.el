@@ -140,25 +140,54 @@ and indentation. STR is the declaration."
   (interactive)
   (let* ((tmp-file-name (concat d2-tmp-dir "current-buffer.d2")))
     (write-region (point-min) (point-max) tmp-file-name)
-    (d2-compile-file tmp-file-name)))
+    (d2-compile-file-with-options tmp-file-name)))
 
-(defun d2-compile-region ()
+(defun d2-compile-region (&optional browse)
   "Compile the current d2 region using d2."
   (interactive)
   (let* ((tmp-file-name (concat d2-tmp-dir "current-region.d2")))
     (when (use-region-p)
       (write-region (region-beginning) (region-end) tmp-file-name)
-      (d2-compile-file tmp-file-name))))
+      (d2-compile-file tmp-file-name browse))))
 
-(defun d2-compile-file (file-name)
-  "Compile the given d2 file using d2."
+(defun d2-compile-region-and-browse ()
+  "Compile the current d2 region using d2 and browse on browser."
+  (interactive)
+  (d2-compile-region t))
+
+(defun d2-compile-file (file-name &optional browse)
+  "Compile the given d2 file using d2. browse option determines opening method"
   (interactive "fFilename: ")
   (let* ((input file-name)
          (output (concat (file-name-sans-extension input) d2-output-format)))
-    (message output)
     (apply #'call-process d2-location nil "*d2*" nil (list input output))
-    (display-buffer (find-file-noselect output t))))
+    (if (equal browse t)
+      (progn
+        (d2-browse-file output))
+      (progn
+        (display-buffer (find-file-noselect output t))))))
 
+(defun d2-view-current-svg ()
+  "view the current svg in the browser"
+  (interactive)
+  (d2-browse-file buffer-file-name))
+
+(defun d2-browse-file (file-name)
+  "View a file in the browser"
+  (interactive "fFilename: ")
+  (let ((url file-name))
+    (browse-url url)))
+
+(defun d2-compile-file-with-options (file-name &optional browse)
+  "compile file with options"
+  (interactive "fFilename: ")
+  (message "compiling with current options")
+  (d2-compile-file file-name browse))
+
+(defun d2-compile-buffer-and-browse()
+  "compile buffer and browse"
+  (interactive)
+  (d2-compile-file-with-options buffer-file-name t))
 
 (defun d2-open-doc ()
   "Open the d2 home page and doc."
@@ -171,7 +200,11 @@ and indentation. STR is the declaration."
     (define-key map (kbd "C-c C-f") 'd2-compile-file)
     (define-key map (kbd "C-c C-b") 'd2-compile-buffer)
     (define-key map (kbd "C-c C-r") 'd2-compile-region)
+    (define-key map (kbd "C-c C-h") 'd2-compile-file-and-browse)
+    (define-key map (kbd "C-c C-j") 'd2-compile-buffer-and-browse)
+    (define-key map (kbd "C-c C-k") 'd2-compile-region-and-browse)
     (define-key map (kbd "C-c C-o") 'd2-open-browser)
+    (define-key map (kbd "C-x C-o") 'd2-view-current-svg)
     (define-key map (kbd "C-c C-d") 'd2-open-doc)
     map))
 
