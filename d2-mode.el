@@ -74,21 +74,21 @@
 (defcustom d2-location "d2"
   "D2 binary location."
   :type 'string
-  :group 'd2-mode)
+  :group 'd2)
 
 (defcustom d2-output-format ".svg"
   "D2 output format."
-  :group 'd2-mode
+  :group 'd2
   :type 'string)
 
 (defcustom d2-tmp-dir "/tmp/"
   "Dir for tmp files."
-  :group 'd2-mode
+  :group 'd2
   :type 'string)
 
 (defcustom d2-flags ""
   "Additional flags to pass to the d2-cli."
-  :group 'd2-mode
+  :group 'd2
   :type 'string)
 
 (defconst d2-font-lock-keywords
