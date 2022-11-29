@@ -114,11 +114,9 @@ See the `snippets` folder for yas snippets. Start making d2 graphs today!
 
 ## Bugs & Issues
 
-- libmagick and M1's have some issues. 1) it's not by default supported in the
-  emacsformac install or the cask install and 2. There are some issues with
-  rendering svg from emacs side. See
-  https://github.com/andorsk/d2-mode/issues/13 and
-  https://github.com/andorsk/d2-mode/issues/8 for more details. You can use the
+- SVG's have issues rending in emacs sometimes. See 
+  [#13](https://github.com/andorsk/d2-mode/issues/13) and
+  [#8](https://github.com/andorsk/d2-mode/issues/8) for more details. You can use the
   `*browse` commands to render it directly in your browser instead!
 
-Feel free to open an issue!
+Feel free to open an issue and or contribute to this repo over a PR!
