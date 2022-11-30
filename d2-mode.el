@@ -55,7 +55,7 @@
 ;; This code was heavily inspired by mermaid-mode @
 ;; https://github.com/abrochard/mermaid-mode
 
-;; STATE: Currently this is a work in progress
+;; STATE: Alpha. Up for review by Melpa. 
 ;;
 ;; Code
 
