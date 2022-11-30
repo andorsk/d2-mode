@@ -63,8 +63,6 @@
 (require 'ob)
 (require 'ob-eval)
 
-;;; Code:
-
 (defgroup d2 nil
   "Major mode for working with d2 graphs."
   :group 'extensions
