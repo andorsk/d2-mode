@@ -59,7 +59,6 @@
 ;;
 ;; Code
 
-(require 'f)
 (require 'browse-url)
 (require 'ob)
 (require 'ob-eval)
