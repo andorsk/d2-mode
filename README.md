@@ -5,9 +5,9 @@
 A [d2](https://github.com/terrastruct/d2) extension for Emacs. This was heavily
 inspired of [Mermaid Mode](https://github.com/abrochard/mermaid-mode).
 
-**Status:** Alpha. 
+**Status:** Alpha.
 
-It works you can use this to render d2 in both your browser and in an emacs buffer. See [Bugs & Issues](#bugs--issues) for known issues. 
+It works you can use this to render d2 in both your browser and in an emacs buffer. See [Bugs & Issues](#bugs--issues) for known issues.
 
 <div>
   <img height="500px" alt="image" src="https://user-images.githubusercontent.com/8604639/204498003-08bd0e05-0e0b-4d60-8d94-1ed95a4a7cd3.png">
@@ -33,6 +33,7 @@ It works you can use this to render d2 in both your browser and in an emacs buff
 - [Bonus](#bonus)
 - [Roadmap](#roadmap)
 - [Bugs & Issues](#bugs--issues)
+- [Contributors](#contributors)
 
 <!-- markdown-toc end -->
 
