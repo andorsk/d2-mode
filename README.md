@@ -123,6 +123,11 @@ Feel free to open an issue and or contribute to this repo over a PR!
 
 ## Contributors
 
+We thank anyone that decides to contribute to this repository and encourage
+contributions.
+
 <a href="https://github.com/andorsk/d2-mode/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=andorsk/d2-mode" />
 </a>
+
+Also thank you to @suliveevil for bringing up issues.
