@@ -121,7 +121,8 @@
     nil))
 
 (defun d2--locate-declaration (str)
-  "Locate a certain declaration and return the line difference and indentation. STR is the declaration."
+  "Locate a certain declaration and return the line
+difference and indentation. STR is the declaration."
   (let ((l (line-number-at-pos)))
     (save-excursion
       (if (re-search-backward str (point-min) t)
