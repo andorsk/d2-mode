@@ -116,9 +116,20 @@ See the `snippets` folder for yas snippets. Start making d2 graphs today!
 
 ## Bugs & Issues
 
-- SVG's have issues rending in emacs sometimes. See 
+- SVG's have issues rending in emacs sometimes. See
   [#13](https://github.com/andorsk/d2-mode/issues/13) and
   [#8](https://github.com/andorsk/d2-mode/issues/8) for more details. You can use the
   `*browse` commands to render it directly in your browser instead!
 
 Feel free to open an issue and or contribute to this repo over a PR!
+
+## Contributors
+
+We thank anyone that decides to contribute to this repository and encourage
+contributions.
+
+<a href="https://github.com/andorsk/d2-mode/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=andorsk/d2-mode" />
+</a>
+
+Also thank you to @suliveevil for bringing up issues.
