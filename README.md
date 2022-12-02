@@ -123,6 +123,6 @@ Feel free to open an issue and or contribute to this repo over a PR!
 
 ## Contributors
 
-<a href = "https://github.com/andorsk/d2-mode/graphs/contributors">
-  <img src = "https://contrib.rocks/image?repo = andorsk/d2-mode"/>
+<a href="https://github.com/andorsk/d2-mode/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=andorsk/d2-mode" />
 </a>
