@@ -1,5 +1,8 @@
 <!-- [![MELPA](https://melpa.org/packages/d2-mode-badge.svg)](https://melpa.org/#/d2-mode) -->
 
+[![build](https://github.com/andorsk/d2-mode/actions/workflows/build.yml/badge.svg)](https://github.com/andorsk/d2-mode/actions/workflows/build.yml)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 # d2-mode
 
 A [d2](https://github.com/terrastruct/d2) extension for Emacs. This was heavily
