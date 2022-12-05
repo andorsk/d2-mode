@@ -15,6 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Setup Eamcs
+        uses: purcell/setup-emacs@master
+        with:
+         version: 24.5
+        
       - name: Emacs Lisp check
         uses: leotaku/elisp-check@v1.3
         with:
