@@ -1,0 +1,21 @@
+name: Elisp Check
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Emacs Lisp check
+        uses: leotaku/elisp-check@v1.3
+        with:
+          file: d2-mode.el
