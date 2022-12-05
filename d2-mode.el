@@ -23,7 +23,7 @@
 ;; Keywords: d2 graphs tools processes
 ;; URL: https://github.com/andorsk/d2-mode
 ;; License: GNU General Public License >= 3
-;; Package-Requires: ((emacs "25.3"))
+;; Package-Requires: ((emacs "26.1"))
 
 ;;; Commentary:
 
@@ -55,13 +55,14 @@
 ;; This code was heavily inspired by mermaid-mode @
 ;; https://github.com/abrochard/mermaid-mode
 
-;; STATE: Alpha. Up for review by Melpa. 
+;; STATE: Alpha. Up for review by Melpa.
 ;;
-;; Code
 
 (require 'browse-url)
 (require 'ob)
 (require 'ob-eval)
+
+;;; Code:
 
 (defgroup d2 nil
   "Major mode for working with d2 graphs."
@@ -78,7 +79,7 @@
   :group 'd2
   :type 'string)
 
-(defcustom d2-tmp-dir "/tmp/"
+(defcustom d2-tmp-dir (temporary-file-directory)
   "Dir for tmp files."
   :group 'd2
   :type 'string)
@@ -121,8 +122,8 @@
     nil))
 
 (defun d2--locate-declaration (str)
-  "Locate a certain declaration and return the line
-difference and indentation. STR is the declaration."
+  "Locate a certain declaration and return the line difference and indentation.
+STR is the declaration."
   (let ((l (line-number-at-pos)))
     (save-excursion
       (if (re-search-backward str (point-min) t)
