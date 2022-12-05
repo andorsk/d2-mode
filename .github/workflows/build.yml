@@ -19,3 +19,4 @@ jobs:
         uses: leotaku/elisp-check@v1.3
         with:
           file: d2-mode.el
+          warnings_as_errors: true
