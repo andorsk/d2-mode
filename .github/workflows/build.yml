@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Eamcs
+      - name: Setup Emacs
         uses: purcell/setup-emacs@master
         with:
          version: 26.1
