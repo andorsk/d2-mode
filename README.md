@@ -8,7 +8,7 @@
 A [d2](https://github.com/terrastruct/d2) extension for Emacs. This was heavily
 inspired of [Mermaid Mode](https://github.com/abrochard/mermaid-mode).
 
-**Status:** Alpha.
+**Status:** Alpha. Available on Melpa. 
 
 It works you can use this to render d2 in both your browser and in an emacs buffer. See [Bugs & Issues](#bugs--issues) for known issues.
 
@@ -58,7 +58,7 @@ Learn more about [d2 here](https://d2lang.com/tour/intro/)
 
 ## Installation
 
-1. Load the d2-mode.el file ( Melpa not available yet )
+1. Load the d2-mode.el file or install from melpa: `M-x package-install d2-mode`
 2. Install d2 binary from the d2 project if you plan to compile graphs in Emacs
 
 ## Usage
