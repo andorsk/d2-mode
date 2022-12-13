@@ -80,7 +80,7 @@ Note: All compile commands will open the output in a buffer to view the resultin
 
 You can specify the location of `d2` with the variable `d2-location`, the default assumes you have the binary in your `PATH` (and for that you probably want/need to install [`d2`](https://github.com/andorsk/d2-mode)).
 
-### `d2` output format
+### Output format
 
 You can specify png or svg output format by putting this in your `init.el` file:
 
@@ -91,10 +91,6 @@ Options are:
 - `.svg`
 
 Default is SVG.
-
-### Output format
-
-By default `d2` will compile to svg format. You can change that by setting the variable `d2-output-format`.
 
 ### Temp directory
 
