@@ -86,7 +86,7 @@ You can specify png or svg output format by putting this in your `init.el` file:
 
 ```(setq d2-output-format "<OUTPUT_FORMAT")```
 
-Optins are: 
+Options are: 
 - `.png`
 - `.svg`
 
