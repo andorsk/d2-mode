@@ -114,7 +114,7 @@
                        (error "D2 requires a \":file\" header argument")))
          (temp-file (org-babel-temp-file "d2-"))
          (cmd (concat (shell-quote-argument d2-location)
-                      " " temp-file                      
+                      " " temp-file
                       " " (org-babel-process-file-name out-file)
                       " " d2-flags)))
     (with-temp-file temp-file (insert body))
