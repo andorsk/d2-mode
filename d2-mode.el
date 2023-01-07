@@ -130,16 +130,16 @@ STR is the declaration."
           (cons (- l (line-number-at-pos)) (current-indentation))
         (cons -1 -1)))))
 
-(defcustom d2fmt-args nil
-  "Additional arguments to pass to d2fmt."
+(defcustom d2format-args nil
+  "Additional arguments to pass to d2format."
   :type '(repeat string)
   :group 'd2)
 
-(defcustom d2fmt-show-errors 'buffer
-  "Where to display d2fmt error output.
+(defcustom d2format-show-errors 'buffer
+  "Where to display d2format error output.
 It can either be displayed in its own buffer, in the echo area, or not at all.
 Please note that Emacs outputs to the echo area when writing
-files and will overwrite d2fmt's echo output if used from inside
+files and will overwrite d2format's echo output if used from inside
 a `before-save-hook'."
   :type '(choice
           (const :tag "Own buffer" buffer)
@@ -217,20 +217,20 @@ Optional argument BROWSE whether to open the browser."
   (browse-url "https://github.com/terrastruct/d2"))
 
 
-(defun d2fmt()
+(defun d2format()
   "Format the current buffer according to the formatting tool.
 Code was heavily inspired by gofmt.
 https://github.com/dominikh/go-mode.el/\
 blob/166dfb1e090233c4609a50c2ec9f57f113c1da72/go-mode.el
-The tool used can be set via ‘d2-location’ (default: d2fmt) and additional
-arguments can be set as a list via ‘d2fmt-args’."
+The tool used can be set via ‘d2-location’ (default: d2format) and additional
+arguments can be set as a list via ‘d2format-args’."
 
   (interactive)
-  (let ((tmpfile (make-nearby-temp-file "d2fmt" nil ".d2"))
-       (patchbuf (get-buffer-create "*d2fmt patch*"))
-       (errbuf (if d2fmt-show-errors (get-buffer-create "*d2fmt Errors*")))
+  (let ((tmpfile (make-nearby-temp-file "d2format" nil ".d2"))
+       (patchbuf (get-buffer-create "*d2format patch*"))
+       (errbuf (if d2format-show-errors (get-buffer-create "*d2format Errors*")))
        (coding-system-for-read 'utf-8)
-       (our-d2fmt-args "")
+       (our-d2format-args "")
        (coding-system-for-write 'utf-8))
 
   (unwind-protect
@@ -245,24 +245,27 @@ arguments can be set as a list via ‘d2fmt-args’."
 
         (write-region nil nil tmpfile)
 
-        (message "Calling d2fmt: %s %s" d2-location our-d2fmt-args)
+        (message "Calling d2format: %s %s" d2-location "fmt")
+
         (if (zerop (apply #'process-file d2-location nil errbuf nil ""))
+            (message "processing file")
             (progn
               (if (zerop (let ((local-copy (file-local-copy tmpfile)))
+                           (message (concat "running local copy " local-copy))
                            (unwind-protect
                                (call-process-region
                                   (point-min) (point-max) "diff" nil patchbuf
                                   nil "-n" "-" (or local-copy tmpfile))
                                (when local-copy (delete-file local-copy)))))
-                           (message "Buffer is already d2fmt")
-                        (message "Applied d2fmt"))
-              (if errbuf (d2fmt--kill-error-buffer errbuf)))
-          (message "Could not apply d2fmt")
-          (if errbuf (d2fmt--process-errors (buffer-file-name) tmpfile errbuf))))
+                           (message "Buffer is already d2format")
+                        (message "Applied d2format"))
+              (if errbuf (d2format--kill-error-buffer errbuf)))
+          (message "Could not apply d2format")
+          (if errbuf (d2format--process-errors (buffer-file-name) tmpfile errbuf))))
           (kill-buffer patchbuf)
           (delete-file tmpfile))))
 
-(defun d2fmt--kill-error-buffer (errbuf)
+(defun d2format--kill-error-buffer (errbuf)
   "Utility function that kill the error buffer.
 Argument ERRBUF the buffer which contains the error message."
   (let ((win (get-buffer-window errbuf)))
@@ -270,19 +273,19 @@ Argument ERRBUF the buffer which contains the error message."
         (quit-window t win)
       (kill-buffer errbuf))))
 
-(defun d2fmt--process-errors (filename tmpfile errbuf)
+(defun d2format--process-errors (filename tmpfile errbuf)
   "Utility function that provides error handling.
 Argument FILENAME the input file.
 Argument TMPFILE the path to the temporary file.
 Argument ERRBUF error buffer."
   (with-current-buffer errbuf
-    (if (eq d2fmt-show-errors 'echo)
+    (if (eq d2format-show-errors 'echo)
         (progn
           (message "%s" (buffer-string))
-          (d2fmt--kill-error-buffer errbuf))
-      ;; Convert the d2fmt stderr to something understood by the compilation mode.
+          (d2format--kill-error-buffer errbuf))
+      ;; Convert the d2format stderr to something understood by the compilation mode.
       (goto-char (point-min))
-      (insert "d2fmt errors:\n")
+      (insert "d2format errors:\n")
       (let ((truefile tmpfile))
              (while (search-forward-regexp
                 (concat "^\\(" (regexp-quote (file-local-name truefile))
@@ -314,14 +317,14 @@ Argument ERRBUF error buffer."
   (setq-local comment-end "")
   (setq-local comment-start-skip "%%+ *"))
 
-(defun d2fmt-before-save ()
-  "Add this to .emacs to run d2fmt on the current buffer when saving:
-\=(add-hook 'before-save-hook 'd2fmt-before-save).
+(defun d2format-before-save ()
+  "Add this to .emacs to run d2format on the current buffer when saving:
+\=(add-hook 'before-save-hook 'd2format-before-save).
 Note that this will cause ‘d2-mode’ to get loaded the first time
 you save any file, kind of defeating the point of autoloading."
 
   (interactive)
-  (when (eq major-mode 'd2-mode) (d2fmt)))
+  (when (eq major-mode 'd2-mode) (d2format)))
 
 
 (provide 'd2-mode)
