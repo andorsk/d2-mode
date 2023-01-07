@@ -230,8 +230,8 @@ arguments can be set as a list via ‘d2fmt-args’."
        (patchbuf (get-buffer-create "*d2fmt patch*"))
        (errbuf (if d2fmt-show-errors (get-buffer-create "*d2fmt Errors*")))
        (coding-system-for-read 'utf-8)
-       (coding-system-for-write 'utf-8)
-       our-d2fmt-args)
+       (out-d2fmt-args "")
+       (coding-system-for-write 'utf-8))
 
   (unwind-protect
       (save-restriction
@@ -246,7 +246,7 @@ arguments can be set as a list via ‘d2fmt-args’."
         (write-region nil nil tmpfile)
 
         (message "Calling d2fmt: %s %s" d2-location our-d2fmt-args)
-        (if (zerop (apply #'process-file d2-location nil errbuf nil our-d2fmt-args))
+        (if (zerop (apply #'process-file d2-location nil errbuf nil ""))
             (progn
               (if (zerop (let ((local-copy (file-local-copy tmpfile)))
                            (unwind-protect
@@ -256,7 +256,7 @@ arguments can be set as a list via ‘d2fmt-args’."
                                (when local-copy (delete-file local-copy)))))
                            (message "Buffer is already d2fmt")
                         (message "Applied d2fmt"))
-              (if errbuf (d2--kill-error-buffer errbuf)))
+              (if errbuf (d2fmt--kill-error-buffer errbuf)))
           (message "Could not apply d2fmt")
           (if errbuf (d2fmt--process-errors (buffer-file-name) tmpfile errbuf))))
           (kill-buffer patchbuf)
@@ -283,7 +283,7 @@ Argument TMPFILE error buffer."
       ;; Convert the d2fmt stderr to something understood by the compilation mode.
       (goto-char (point-min))
       (insert "d2fmt errors:\n")
-      (let ((truefile
+      (let ((truefile tmpfile))
              (while (search-forward-regexp
                 (concat "^\\(" (regexp-quote (file-local-name truefile))
                         "\\):")
