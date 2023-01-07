@@ -316,7 +316,7 @@ Argument ERRBUF error buffer."
 
 (defun d2fmt-before-save ()
   "Add this to .emacs to run d2fmt on the current buffer when saving:
-\(add-hook 'before-save-hook 'd2fmt-before-save).
+\=(add-hook 'before-save-hook 'd2fmt-before-save).
 Note that this will cause ‘d2-mode’ to get loaded the first time
 you save any file, kind of defeating the point of autoloading."
 
