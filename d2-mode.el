@@ -130,6 +130,28 @@ STR is the declaration."
           (cons (- l (line-number-at-pos)) (current-indentation))
         (cons -1 -1)))))
 
+(defcustom d2fmt-command "d2fmt"
+  "The 'd2fmt' command."
+  :type 'string
+  :group 'd2)
+
+(defcustom d2fmt-args nil
+  "Additional arguments to pass to d2fmt."
+  :type '(repeat string)
+  :group 'd2)
+
+(defcustom d2fmt-show-errors 'buffer
+  "Where to display d2fmt error output.
+It can either be displayed in its own buffer, in the echo area, or not at all.
+Please note that Emacs outputs to the echo area when writing
+files and will overwrite d2fmt's echo output if used from inside
+a `before-save-hook'."
+  :type '(choice
+          (const :tag "Own buffer" buffer)
+          (const :tag "Echo area" echo)
+          (const :tag "None" nil))
+  :group 'd2)
+
 (defun d2-compile ()
   "Compile the current d2 file using d2."
   (interactive)
@@ -199,6 +221,81 @@ Optional argument BROWSE whether to open the browser."
   (interactive)
   (browse-url "https://github.com/terrastruct/d2"))
 
+
+(defun d2fmt()
+  "Format the current buffer according to the formatting tool.
+
+  Inspired by gofmt.
+
+  The tool used can be set via ‘d2fmt-command’ (default: d2fmt) and additional
+  arguments can be set as a list via ‘d2fmt-args’."
+
+  (interactive)
+  (let ((tmpfile (make-nearby-temp-file "d2fmt" nil ".d2"))
+       (patchbuf (get-buffer-create "*d2fmt patch*"))
+       (errbuf (if gofmt-show-errors (get-buffer-create "*d2fmt Errors*")))
+       (coding-system-for-read 'utf-8)
+       (coding-system-for-write 'utf-8)
+       our-gofmt-args)
+
+  (unwind-protect
+      (save-restriction
+        (widen)
+        (if errbuf
+             (with-current-buffer errbuf
+                (setq buffer-read-only nil)
+                (erase-buffer)))
+        (with-current-buffer patchbuf
+            (erase-buffer))
+
+        (write-region nil nil tmpfile)
+
+        (message "Calling d2fmt: %s %s" d2fmt-command our-gofmt-args)
+        (if (zerop (apply #'process-file gofmt-command nil errbuf nil our-gofmt-args))
+            (progn
+              (if (zerop (let ((local-copy (file-local-copy tmpfile)))
+                           (unwind-protect
+                               (call-process-region
+                                  (point-min) (point-max) "diff" nil patchbuf
+                                  nil "-n" "-" (or local-copy tmpfile))
+                               (when local-copy (delete-file local-copy)))))
+                           (message "Buffer is already d2fmt")
+                        (go--apply-rcs-patch patchbuf)
+                        (message "Applied d2fmt"))
+              (if errbuf (d2--kill-error-buffer errbuf)))
+          (message "Could not apply d2fmt")
+          (if errbuf (d2fmt--process-errors (buffer-file-name) tmpfile errbuf))))
+          (kill-buffer patchbuf)
+          (delete-file tmpfile))))
+
+
+
+(defun d2fmt--kill-error-buffer (errbuf)
+  (let ((win (get-buffer-window errbuf)))
+    (if win
+        (quit-window t win)
+      (kill-buffer errbuf))))
+
+(defun d2fmt--process-errors (filename tmpfile errbuf)
+  (with-current-buffer errbuf
+    (if (eq d2fmt-show-errors 'echo)
+        (progn
+          (message "%s" (buffer-string))
+          (d2fmt--kill-error-buffer errbuf))
+      ;; Convert the gofmt stderr to something understood by the compilation mode.
+      (goto-char (point-min))
+      (insert "d2fmt errors:\n")
+      (let ((truefile
+             (if (--is-goimports-p)
+                 (concat (file-name-directory filename) (file-name-nondirectory tmpfile))
+               tmpfile)))
+        (while (search-forward-regexp
+                (concat "^\\(" (regexp-quote (file-local-name truefile))
+                        "\\):")
+                nil t)
+          (replace-match (file-name-nondirectory filename) t t nil 1)))
+      (compilation-mode)
+      (display-buffer errbuf))))
 (defvar d2-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c C-c") 'd2-compile)
@@ -220,6 +317,17 @@ Optional argument BROWSE whether to open the browser."
   (setq-local comment-start "%%")
   (setq-local comment-end "")
   (setq-local comment-start-skip "%%+ *"))
+
+
+(defun d2fmt-before-save ()
+  "Add this to .emacs to run gofmt on the current buffer when saving:
+\(add-hook 'before-save-hook 'gofmt-before-save).
+Note that this will cause ‘go-mode’ to get loaded the first time
+you save any file, kind of defeating the point of autoloading."
+
+  (interactive)
+  (when (eq major-mode 'd2-mode) (d2fmt)))
+
 
 (provide 'd2-mode)
 
