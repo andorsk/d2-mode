@@ -130,11 +130,6 @@ STR is the declaration."
           (cons (- l (line-number-at-pos)) (current-indentation))
         (cons -1 -1)))))
 
-(defcustom d2fmt-command "d2fmt"
-  "The 'd2fmt' command."
-  :type 'string
-  :group 'd2)
-
 (defcustom d2fmt-args nil
   "Additional arguments to pass to d2fmt."
   :type '(repeat string)
@@ -224,11 +219,11 @@ Optional argument BROWSE whether to open the browser."
 
 (defun d2fmt()
   "Format the current buffer according to the formatting tool.
-
-  Inspired by d2fmt.
-
-  The tool used can be set via ‘d2fmt-command’ (default: d2fmt) and additional
-  arguments can be set as a list via ‘d2fmt-args’."
+Code was heavily inspired by gofmt.
+https://github.com/dominikh/go-mode.el/\
+blob/166dfb1e090233c4609a50c2ec9f57f113c1da72/go-mode.el
+The tool used can be set via ‘d2-location’ (default: d2fmt) and additional
+arguments can be set as a list via ‘d2fmt-args’."
 
   (interactive)
   (let ((tmpfile (make-nearby-temp-file "d2fmt" nil ".d2"))
@@ -250,8 +245,8 @@ Optional argument BROWSE whether to open the browser."
 
         (write-region nil nil tmpfile)
 
-        (message "Calling d2fmt: %s %s" d2fmt-command our-d2fmt-args)
-        (if (zerop (apply #'process-file d2fmt-command nil errbuf nil our-d2fmt-args))
+        (message "Calling d2fmt: %s %s" d2-location our-d2fmt-args)
+        (if (zerop (apply #'process-file d2-location nil errbuf nil our-d2fmt-args))
             (progn
               (if (zerop (let ((local-copy (file-local-copy tmpfile)))
                            (unwind-protect
