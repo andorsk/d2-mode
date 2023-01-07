@@ -262,8 +262,6 @@ arguments can be set as a list via ‘d2fmt-args’."
           (kill-buffer patchbuf)
           (delete-file tmpfile))))
 
-
-
 (defun d2fmt--kill-error-buffer (errbuf)
   "Utility function that kill the error buffer.
 Argument ERRBUF the buffer which contains the error message."
@@ -293,6 +291,7 @@ Argument TMPFILE error buffer."
           (replace-match (file-name-nondirectory filename) t t nil 1)))
       (compilation-mode)
       (display-buffer errbuf))))
+
 (defvar d2-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c C-c") 'd2-compile)
@@ -314,7 +313,6 @@ Argument TMPFILE error buffer."
   (setq-local comment-start "%%")
   (setq-local comment-end "")
   (setq-local comment-start-skip "%%+ *"))
-
 
 (defun d2fmt-before-save ()
   "Add this to .emacs to run d2fmt on the current buffer when saving:
