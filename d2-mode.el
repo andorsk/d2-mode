@@ -230,7 +230,7 @@ arguments can be set as a list via ‘d2fmt-args’."
        (patchbuf (get-buffer-create "*d2fmt patch*"))
        (errbuf (if d2fmt-show-errors (get-buffer-create "*d2fmt Errors*")))
        (coding-system-for-read 'utf-8)
-       (out-d2fmt-args "")
+       (our-d2fmt-args "")
        (coding-system-for-write 'utf-8))
 
   (unwind-protect
@@ -271,10 +271,10 @@ Argument ERRBUF the buffer which contains the error message."
       (kill-buffer errbuf))))
 
 (defun d2fmt--process-errors (filename tmpfile errbuf)
-  "Utility function to process errors
+  "Utility function that provides error handling.
 Argument FILENAME the input file.
 Argument TMPFILE the path to the temporary file.
-Argument TMPFILE error buffer."
+Argument ERRBUF error buffer."
   (with-current-buffer errbuf
     (if (eq d2fmt-show-errors 'echo)
         (progn
