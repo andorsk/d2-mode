@@ -73,6 +73,14 @@ Note: All compile commands will open the output in a buffer to view the resultin
 
 ## Customization
 
+### `d2fmt` on Save
+
+Add this to your `init.el` file to auto fmt on save
+
+```elisp
+(add-hook 'before-save-hook #d2fmt-before-save)
+```
+
 ### `d2` binary location
 
 You can specify the location of `d2` with the variable `d2-location`, the default assumes you have the binary in your `PATH` (and for that you probably want/need to install [`d2`](https://github.com/andorsk/d2-mode)).
