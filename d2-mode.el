@@ -92,13 +92,14 @@
 (defconst d2-font-lock-keywords
   `((,(regexp-opt '("shape" "md" ) 'words) . font-lock-keyword-face)
     ("---\\|-?->*\\+?\\|==>\\|===|->" . font-lock-variable-name-face)
+    ("#.*" .  font-lock-comment-face )
     (":\\|{\\|}\\|\|\\|+" . font-lock-builtin-face)
     (,(regexp-opt '("go" "js") 'lang) .  font-lock-preprocessor-face)
     (,(regexp-opt '("class" "string" ) 'words2) .  font-lock-type-face)))
 
 (defvar d2-syntax-table
   (let ((syntax-table (make-syntax-table)))
-    ;; Comment style "%% ..."
+    ;; Comment style "# ..."
     (modify-syntax-entry ?% ". 124" syntax-table)
     (modify-syntax-entry ?\n ">" syntax-table)
     syntax-table)
