@@ -92,13 +92,14 @@
 (defconst d2-font-lock-keywords
   `((,(regexp-opt '("shape" "md" ) 'words) . font-lock-keyword-face)
     ("---\\|-?->*\\+?\\|==>\\|===|->" . font-lock-variable-name-face)
+    ("#.*" .  font-lock-comment-face )
     (":\\|{\\|}\\|\|\\|+" . font-lock-builtin-face)
     (,(regexp-opt '("go" "js") 'lang) .  font-lock-preprocessor-face)
     (,(regexp-opt '("class" "string" ) 'words2) .  font-lock-type-face)))
 
 (defvar d2-syntax-table
   (let ((syntax-table (make-syntax-table)))
-    ;; Comment style "%% ..."
+    ;; Comment style "# ..."
     (modify-syntax-entry ?% ". 124" syntax-table)
     (modify-syntax-entry ?\n ">" syntax-table)
     syntax-table)
@@ -217,9 +218,9 @@ Optional argument BROWSE whether to open the browser."
 (define-derived-mode d2-mode prog-mode "d2"
   :syntax-table d2-syntax-table
   (setq-local font-lock-defaults '(d2-font-lock-keywords))
-  (setq-local comment-start "%%")
+  (setq-local comment-start "#")
   (setq-local comment-end "")
-  (setq-local comment-start-skip "%%+ *"))
+  (setq-local comment-start-skip "#"))
 
 (provide 'd2-mode)
 
