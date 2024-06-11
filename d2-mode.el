@@ -84,10 +84,10 @@
   :group 'd2
   :type 'string)
 
-(defcustom d2-flags ""
+(defcustom d2-flags nil
   "Additional flags to pass to the d2-cli."
   :group 'd2
-  :type 'string)
+  :type '(repeat string))
 
 (defconst d2-font-lock-keywords
   `((,(regexp-opt '("shape" "md" ) 'words) . font-lock-keyword-face)
@@ -114,10 +114,12 @@
   (let* ((out-file (or (cdr (assoc :file params))
                        (error "D2 requires a \":file\" header argument")))
          (temp-file (org-babel-temp-file "d2-"))
-         (cmd (concat (shell-quote-argument d2-location)
-                      " " temp-file
-                      " " (org-babel-process-file-name out-file)
-                      " " d2-flags)))
+         (cmd (mapconcat #'shell-quote-argument
+                         (append (list d2-location
+                                       temp-file
+                                       (org-babel-process-file-name out-file))
+                                 d2-flags)
+                         " ")))
     (with-temp-file temp-file (insert body))
     (org-babel-eval cmd "")
     nil))
@@ -163,10 +165,10 @@ Argument FILE-NAME the input file."
   (interactive "fFilename: ")
   (let* ((input file-name)
          (output (concat (file-name-sans-extension input) d2-output-format)))
-    (apply #'call-process d2-location nil "*d2*" nil (list input output))
+    (apply #'call-process (shell-quote-argument d2-location) nil "*d2*" nil (append (list input output) d2-flags))
     (if (equal browse t)
-      (progn
-        (d2-browse-file output))
+        (progn
+          (d2-browse-file output))
       (progn
         (display-buffer (find-file-noselect output t))))))
 
