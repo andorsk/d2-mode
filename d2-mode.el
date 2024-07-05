@@ -184,8 +184,7 @@ They have a line number of -1"
                                                      "->" "--" "<-"))
                                    (? (group ":" (one-or-more space)))
                                    (? (group (one-or-more (not (any ?{ ?})))))
-                                   "{"
-                                   ))
+                                   "{"))
                         'subnode))
         (end (d2--locate-declaration "^ *} *$"
                                      'end))
@@ -203,16 +202,33 @@ They have a line number of -1"
     (list node subnode-start end connection)))
 
 ;;; declaration part handling
-(defun d2--decl-tag (decl) (car decl))
-(defun d2--decl-line (decl) (cadr decl))
-(gv-define-setter d2--decl-line (val decl) `(setf (cadr ,decl) ,val))
-(defun d2--decl-column (decl) (cddr decl))
+(defun d2--decl-tag (decl)
+  "Get tag from the declaration DECL.  It is the list head."
+  (car decl))
+(defun d2--decl-line (decl)
+  "Get the text of the declaration DECL.  It is the second item in the list."
+  (cadr decl))
+(gv-define-setter d2--decl-line (val decl)
+  "Allow line VAL to be setf in declaration DECL."
+  `(setf (cadr ,decl) ,val))
+(defun d2--decl-column (decl)
+  "Get the column number from DECL.  It is the third item."
+  (cddr decl))
 (defun d2--decl-tags-contain (decl tag)
+  "Check if any of the tags in DECL matches TAG."
   (seq-find (lambda (tag2)
               (equal tag2 tag))
             (d2--decl-tag decl)))
 
 (defun d2--calculate-desired-indentation ()
+  "Calculate indentation of the current line.
+Scan the tokens backwards and accumulate a list.
+Only one token from each type is in this list.
+To accommodate nested structures, we scan twice.
+This way two tokens of the same type can be detected in sequence.
+Once this information is collected, the indentation is chosen based
+on the types of the current and previous token,
+and the indentation of the previous line."
   (save-excursion
     (end-of-line)
     ;; sort tokens by line number (distance from current line)
@@ -271,10 +287,10 @@ They have a line number of -1"
              (max (- (d2--decl-column previous-token) 4) 0))
 
             (t (progn (message "uknown syntax %s" current-token)
-                      (d2--decl-column current-token)))
-            ))))
+                      (d2--decl-column current-token)))))))
 
 (defun d2-indent-line ()
+  "This is the actual function called by Emacs to indent."
   (interactive)
   (indent-line-to (d2--calculate-desired-indentation)))
 
