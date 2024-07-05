@@ -253,7 +253,7 @@ and the indentation of the previous line."
                                                        (d2--parse-from-line)))))))))
            (current-token (car ordered-tokens))
            (previous-token (cadr ordered-tokens)))
-      (message "tokens %s" (mapcar (lambda (t) (d2--decl-tag t)) ordered-tokens))
+      (message "tokens %s" (mapcar (lambda (token) (d2--decl-tag token)) ordered-tokens))
       (cond ((and (d2--decl-tags-contain current-token 'node)
                   (null previous-token))
              0)
