@@ -160,8 +160,9 @@ Use the newer token's line and column."
 (defun d2--sort-tokens-by-line (tokens)
   "Sort TOKENS by line number."
   (sort tokens
-        :key (lambda (token)
-               (d2--decl-line token))))
+        (lambda (token1 token2)
+          (< (d2--decl-line token1)
+                        (d2--decl-line token2)))))
 
 (defun d2--filter-not-found-tokens (tokens)
   "Filter TOKENS that were not detected.
@@ -252,7 +253,7 @@ and the indentation of the previous line."
                                                        (d2--parse-from-line)))))))))
            (current-token (car ordered-tokens))
            (previous-token (cadr ordered-tokens)))
-      (message "tokens %s" ordered-tokens)
+      (message "tokens %s" (mapcar (lambda (t) (d2--decl-tag t)) ordered-tokens))
       (cond ((and (d2--decl-tags-contain current-token 'node)
                   (null previous-token))
              0)
