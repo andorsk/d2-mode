@@ -329,7 +329,7 @@ Argument FILE-NAME the input file."
   (interactive "fFilename: ")
   (let* ((input file-name)
          (output (concat (file-name-sans-extension input) d2-output-format)))
-    (apply #'call-process (shell-quote-argument d2-location) nil "*d2*" nil (append (list input output) d2-flags))
+    (apply #'call-process d2-location nil "*d2*" nil (append (list input output) d2-flags))
     (if (equal browse t)
         (progn
           (d2-browse-file output))
