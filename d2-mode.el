@@ -89,6 +89,12 @@
   :group 'd2
   :type '(repeat string))
 
+(defcustom d2-indent 2
+  "Number of columns to indent d2 blocks."
+  :group 'd2
+  :type 'integer
+  :safe #'integerp)
+
 (defconst d2-font-lock-keywords
   `((,(regexp-opt '("shape" "md" ) 'words) . font-lock-keyword-face)
     ("---\\|-?->*\\+?\\|==>\\|===|->" . font-lock-variable-name-face)
@@ -262,11 +268,11 @@ and the indentation of the previous line."
 
             ((and (d2--decl-tags-contain current-token 'node)
                   (d2--decl-tags-contain previous-token 'subnode))
-             (+ 4 (d2--decl-column previous-token)))
+             (+ d2-indent (d2--decl-column previous-token)))
 
             ((and (d2--decl-tags-contain current-token 'subnode)
                   (d2--decl-tags-contain previous-token 'subnode))
-             (+ 4 (d2--decl-column previous-token)))
+             (+ d2-indent (d2--decl-column previous-token)))
 
 
             ((and (d2--decl-tags-contain current-token 'node)
@@ -279,7 +285,7 @@ and the indentation of the previous line."
 
             ((and (d2--decl-tags-contain current-token 'end)
                   (d2--decl-tags-contain previous-token 'end))
-             (max (- (d2--decl-column previous-token) 4) 0))
+             (max (- (d2--decl-column previous-token) d2-indent) 0))
 
             ((and (d2--decl-tags-contain current-token 'end)
                   (d2--decl-tags-contain previous-token 'subnode))
@@ -287,7 +293,7 @@ and the indentation of the previous line."
 
             ((and (d2--decl-tags-contain current-token 'end)
                   (d2--decl-tags-contain previous-token 'node))
-             (max (- (d2--decl-column previous-token) 4) 0))
+             (max (- (d2--decl-column previous-token) d2-indent) 0))
 
             (t (progn (message "uknown syntax %s" current-token)
                       (d2--decl-column current-token)))))))
