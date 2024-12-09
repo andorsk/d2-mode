@@ -395,6 +395,9 @@ Optional argument BROWSE whether to open the browser."
   (setq-local comment-start-skip "#")
   (setq-local indent-line-function 'd2-indent-line))
 
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.d2\\'" . d2-mode))
+
 (provide 'd2-mode)
 
 ;;; d2-mode.el ends here
